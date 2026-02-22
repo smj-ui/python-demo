@@ -3,8 +3,8 @@ let isOn = false;
 let answers = [];
 
 const prompts = [
-  "What's the name of the city you grew up in?",
-  "What's your pet's name?"
+  "너의 이름은 뭐야?",
+  "너의 반려동물명 or 반려물건명 or 반려취미가 뭐야? (택1)"
 ];
 
 function generateId() {
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     isOn = true;
     answers = [];
     document.getElementById("Content").innerHTML = "";
-    newLine("Welcome to the Band Name Generator.", false);
+    newLine("이제부터 내가 너에게 딱 맞는 추천 아이디를 만들어줄게", false);
     newLine(prompts[0], true);
   });
 });
@@ -77,7 +77,7 @@ document.addEventListener("keydown", (event) => {
 
   if (answers.length >= prompts.length) {
     const bandName = `${answers[0]} ${answers[1]}`.trim();
-    newLine("Your band name could be " + bandName, false);
+    newLine("바로 이거야:" + bandName, false);
     isOn = false;
     return;
   }
@@ -91,4 +91,5 @@ document.addEventListener("input", () => {
   const input = document.querySelector(`#${currentId} input`);
   if (!input) return;
   input.size = Math.max(1, input.value.length + 1);
+
 });
