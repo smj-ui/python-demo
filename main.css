@@ -1,5 +1,6 @@
 body { background: #141414; margin: 0; padding: 24px; }
 button { font-size: 18px; padding: 2px 10px; cursor: pointer; }
+button.ghost { opacity: 0.85; }
 
 .terminal {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -9,40 +10,38 @@ button { font-size: 18px; padding: 2px 10px; cursor: pointer; }
 }
 
 .console-line { color: rgb(0, 178, 0); margin-bottom: 12px; }
+#Content > div { margin: 2px 0; }
 
-.terminal-input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: rgb(187, 187, 187);
-  font-size: 20px;
-  font-family: inherit;
+/* 입력줄: 클릭하면 포커스 */
+.input-line{
+  cursor:text;
+  display:inline-block;
 }
 
-.hidden-input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  width: 1px;
-  height: 1px;
+/* 화면에 보이는 입력 텍스트 */
+.console-typed{
+  white-space:pre-wrap;
+  word-break: break-word;
 }
 
-.console-typed {
-  white-space: pre-wrap;
+/* 실제 입력은 숨김(IME 안정) */
+.hidden-input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+  width:1px;
+  height:1px;
 }
 
-.console-carrot {
+/* 커서 */
+.console-carrot{
   vertical-align: middle;
-  background: #fff;
-  height: 20px;
-  width: 10px;
-  margin-left: 2px;
-  display: inline-block;
-  animation: blink 1s step-start 0s infinite;
-}
-
-.input-line {
-  cursor: text;
+  background:#fff;
+  height:20px;
+  width:10px;
+  margin-left:2px;
+  display:inline-block;
+  animation:blink 1s step-start 0s infinite;
 }
 
 @keyframes blink { 50% { opacity: 0; } }
