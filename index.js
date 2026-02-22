@@ -77,7 +77,8 @@ document.addEventListener("keydown", (event) => {
 
   if (answers.length >= prompts.length) {
     const bandName = `${answers[0]} ${answers[1]}`.trim();
-    newLine("바로 이거야:" + bandName, false);
+    newLine("내가 추천하는 너의 아이디는 이거야 ><")
+    newLine("> " + bandName, false);
     isOn = false;
     return;
   }
@@ -93,3 +94,4 @@ document.addEventListener("input", () => {
   input.size = Math.max(1, input.value.length + 1);
 
 });
+
