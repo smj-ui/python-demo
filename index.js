@@ -96,7 +96,7 @@ function start() {
 }
 
 function finish() {
-  const idName = `${answers[0]} ${answers[1]}`.trim();
+  const idName = `${answers[0]}${answers[1]}26`.trim();
   newLine("내가 추천하는 너의 아이디는 이거야 ><", false);
   newLine("> " + idName, false);
   isOn = false;
@@ -129,3 +129,4 @@ document.addEventListener("keydown", (event) => {
 
   newLine(prompts[answers.length], true);
 });
+
