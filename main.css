@@ -1,0 +1,32 @@
+body { background: #141414; margin: 0; padding: 24px; }
+button { font-size: 18px; padding: 2px 10px; cursor: pointer; }
+
+.terminal {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: rgb(187, 187, 187);
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.console-line { color: rgb(0, 178, 0); margin-bottom: 12px; }
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: rgb(187, 187, 187);
+  font-size: 20px;
+  font-family: inherit;
+}
+
+.console-carrot {
+  vertical-align: middle;
+  background: #fff;
+  height: 20px;
+  width: 10px;
+  margin-left: 2px;
+  display: inline-block;
+  animation: blink 1s step-start 0s infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
