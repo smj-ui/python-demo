@@ -19,6 +19,18 @@ button { font-size: 18px; padding: 2px 10px; cursor: pointer; }
   font-family: inherit;
 }
 
+.hidden-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+.console-typed {
+  white-space: pre-wrap;
+}
+
 .console-carrot {
   vertical-align: middle;
   background: #fff;
@@ -27,6 +39,10 @@ button { font-size: 18px; padding: 2px 10px; cursor: pointer; }
   margin-left: 2px;
   display: inline-block;
   animation: blink 1s step-start 0s infinite;
+}
+
+.input-line {
+  cursor: text;
 }
 
 @keyframes blink { 50% { opacity: 0; } }
