@@ -14,8 +14,8 @@ function generateId() {
 function newLine(text, needsInput) {
   // 이전 입력 잠그기
   if (currentId) {
-    const prevInput = document.querySelector(`#${currentId} input`);
-    if (prevInput) prevInput.disabled = true;
+    const prevHidden = document.querySelector(`#${currentId} input`);
+    if (prevHidden) prevHidden.disabled = true;
   }
 
   const content = document.getElementById("Content");
@@ -28,26 +28,46 @@ function newLine(text, needsInput) {
 
   currentId = "consoleInput-" + generateId();
 
+  // 입력줄(보이는 텍스트 span + 커서 + 숨겨진 input)
   const wrapper = document.createElement("div");
   wrapper.id = currentId;
+  wrapper.className = "input-line";
 
   const prompt = document.createElement("span");
   prompt.textContent = "> ";
 
-  const input = document.createElement("input");
-  input.className = "terminal-input";
-  input.size = 1;
-  input.autofocus = true;
+  const typed = document.createElement("span");
+  typed.className = "console-typed";
+  typed.textContent = ""; // 화면에 보이는 입력 내용
 
   const cursor = document.createElement("span");
   cursor.className = "console-carrot";
 
+  const hiddenInput = document.createElement("input");
+  hiddenInput.className = "hidden-input";
+  hiddenInput.autofocus = true;
+
   wrapper.appendChild(prompt);
-  wrapper.appendChild(input);
+  wrapper.appendChild(typed);
   wrapper.appendChild(cursor);
+  wrapper.appendChild(hiddenInput);
   content.appendChild(wrapper);
 
-  input.focus();
+  // 클릭하면 포커스
+  wrapper.addEventListener("click", () => hiddenInput.focus());
+
+  // IME 포함 모든 입력을 span에 미러링
+  hiddenInput.addEventListener("input", () => {
+    typed.textContent = hiddenInput.value;
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  // 한글 조합 입력 안정화
+  hiddenInput.addEventListener("compositionend", () => {
+    typed.textContent = hiddenInput.value;
+  });
+
+  hiddenInput.focus();
   window.scrollTo(0, document.body.scrollHeight);
 }
 
@@ -66,18 +86,18 @@ document.addEventListener("keydown", (event) => {
   if (event.key !== "Enter") return;
   if (!currentId) return;
 
-  const input = document.querySelector(`#${currentId} input`);
-  if (!input) return;
+  const hiddenInput = document.querySelector(`#${currentId} input`);
+  if (!hiddenInput) return;
 
-  const val = input.value.trim();
+  const val = hiddenInput.value.trim();
   answers.push(val);
 
-  // 커서 제거
+  // 이전 줄 커서 제거
   document.querySelectorAll(".console-carrot").forEach((el) => el.remove());
 
   if (answers.length >= prompts.length) {
     const bandName = `${answers[0]} ${answers[1]}`.trim();
-    newLine("내가 추천하는 너의 아이디는 이거야 ><")
+    newLine("내가 추천하는 너의 아이디는 이거야 ><", false);
     newLine("> " + bandName, false);
     isOn = false;
     return;
@@ -85,13 +105,3 @@ document.addEventListener("keydown", (event) => {
 
   newLine(prompts[answers.length], true);
 });
-
-// 입력 길이에 따라 input size 조절(터미널 느낌)
-document.addEventListener("input", () => {
-  if (!currentId) return;
-  const input = document.querySelector(`#${currentId} input`);
-  if (!input) return;
-  input.size = Math.max(1, input.value.length + 1);
-
-});
-
